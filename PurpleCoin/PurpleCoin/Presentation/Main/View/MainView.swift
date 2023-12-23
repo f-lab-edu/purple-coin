@@ -20,7 +20,10 @@ class MainView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+}
+
+//MARK: Layout
+extension MainView {
     func setLayout() {
         [bottomNavigationView].forEach {
             addSubview($0)
