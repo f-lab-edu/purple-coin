@@ -24,8 +24,9 @@
 		683B9D0C853020C7F9FAAF13 /* Pods_PurpleCoin_PurpleCoinUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D013B30DED23B68BE98E30D /* Pods_PurpleCoin_PurpleCoinUITests.framework */; };
 		79A448D72B3873B800A18516 /* CoinTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A448D62B3873B800A18516 /* CoinTableViewCell.swift */; };
 		79C5A3952B46ED7200EC25BE /* star_filled.png in Resources */ = {isa = PBXBuildFile; fileRef = 79C5A3932B46ED7200EC25BE /* star_filled.png */; };
-		79C5A3972B46EE0A00EC25BE /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 79C5A3962B46EE0A00EC25BE /* back.png */; };
 		79C5A3992B46EF1600EC25BE /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 79C5A3982B46EF1600EC25BE /* star.png */; };
+		79C5A39B2B4920B700EC25BE /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 79C5A39A2B4920B700EC25BE /* back.png */; };
+		79C5A39E2B4AF16C00EC25BE /* OrderBookTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C5A39D2B4AF16C00EC25BE /* OrderBookTableViewCell.swift */; };
 		79CDA6832B36AF9B00633B65 /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CDA6822B36AF9B00633B65 /* BottomNavigationView.swift */; };
 		79CDA6872B36AFD900633B65 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CDA6862B36AFD900633B65 /* UIDevice+.swift */; };
 		79CDA68A2B36B16F00633B65 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CDA6892B36B16E00633B65 /* home.png */; };
@@ -76,8 +77,9 @@
 		70FED6C54BEADE5F81A7F666 /* Pods-PurpleCoinTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PurpleCoinTests.release.xcconfig"; path = "Target Support Files/Pods-PurpleCoinTests/Pods-PurpleCoinTests.release.xcconfig"; sourceTree = "<group>"; };
 		79A448D62B3873B800A18516 /* CoinTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoinTableViewCell.swift; sourceTree = "<group>"; };
 		79C5A3932B46ED7200EC25BE /* star_filled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_filled.png; sourceTree = "<group>"; };
-		79C5A3962B46EE0A00EC25BE /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		79C5A3982B46EF1600EC25BE /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		79C5A39A2B4920B700EC25BE /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		79C5A39D2B4AF16C00EC25BE /* OrderBookTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OrderBookTableViewCell.swift; path = ../../../../../../../OrderBookTableViewCell.swift; sourceTree = "<group>"; };
 		79CDA6822B36AF9B00633B65 /* BottomNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
 		79CDA6862B36AFD900633B65 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
 		79CDA6892B36B16E00633B65 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		409286C02B351AC000E89F62 /* DetailCoin */ = {
 			isa = PBXGroup;
 			children = (
+				79C5A39C2B4AF15B00EC25BE /* Cell */,
 				409286C32B351B0000E89F62 /* View */,
 			);
 			path = DetailCoin;
@@ -272,6 +275,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		79C5A39C2B4AF15B00EC25BE /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				79C5A39D2B4AF16C00EC25BE /* OrderBookTableViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		79CDA66E2B36A91300633B65 /* Sub */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,9 +310,9 @@
 		79CDA6882B36B16300633B65 /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				79C5A39A2B4920B700EC25BE /* back.png */,
 				79C5A3932B46ED7200EC25BE /* star_filled.png */,
 				79C5A3982B46EF1600EC25BE /* star.png */,
-				79C5A3962B46EE0A00EC25BE /* back.png */,
 				79CDA6902B37F58000633B65 /* search.png */,
 				79CDA68B2B36B1B500633B65 /* asset.png */,
 				79CDA6892B36B16E00633B65 /* home.png */,
@@ -453,7 +464,7 @@
 				79CDA68C2B36B1B500633B65 /* asset.png in Resources */,
 				409286902B3515D300E89F62 /* LaunchScreen.storyboard in Resources */,
 				79C5A3952B46ED7200EC25BE /* star_filled.png in Resources */,
-				79C5A3972B46EE0A00EC25BE /* back.png in Resources */,
+				79C5A39B2B4920B700EC25BE /* back.png in Resources */,
 				79C5A3992B46EF1600EC25BE /* star.png in Resources */,
 				4092868D2B3515D300E89F62 /* Assets.xcassets in Resources */,
 				79CDA68A2B36B16F00633B65 /* home.png in Resources */,
@@ -593,6 +604,7 @@
 				409286862B3515D100E89F62 /* SceneDelegate.swift in Sources */,
 				79CDA68F2B36C02100633B65 /* AssetViewController.swift in Sources */,
 				79CDA6832B36AF9B00633B65 /* BottomNavigationView.swift in Sources */,
+				79C5A39E2B4AF16C00EC25BE /* OrderBookTableViewCell.swift in Sources */,
 				79A448D72B3873B800A18516 /* CoinTableViewCell.swift in Sources */,
 				409286D22B3568DA00E89F62 /* MarketViewController.swift in Sources */,
 				409286DA2B35703000E89F62 /* Constants.swift in Sources */,

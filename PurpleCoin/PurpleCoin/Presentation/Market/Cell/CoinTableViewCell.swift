@@ -13,6 +13,9 @@ class CoinTableViewCell: UITableViewCell {
         static let defaultLabelFont = PurpleCoinFont.font(type: .medium, size: 12)
         static let smallLabelFont = PurpleCoinFont.font(type: .medium, size: 10)
     }
+    var cellTapAction: (() -> Void)?
+    
+    let cellControl = UIControl()
     // 코인 이름 - 한국 
     let krwCoinNameLabel: UILabel = {
         let label = UILabel()
@@ -66,6 +69,7 @@ class CoinTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = PurpleCoinColor.darkPointColor
         setLayout()
+        bindAction()
     }
     
     required init?(coder: NSCoder) {
@@ -76,7 +80,7 @@ class CoinTableViewCell: UITableViewCell {
 //MAKR: Layout
 extension CoinTableViewCell {
     func setLayout() {
-        [krwCoinNameLabel, englishCoinNameLabel, currentPriceLabel, dtdPercentageLabel, dtdPriceLabel, transactionPriceLabel].forEach {
+        [krwCoinNameLabel, englishCoinNameLabel, currentPriceLabel, dtdPercentageLabel, dtdPriceLabel, transactionPriceLabel, cellControl].forEach {
             contentView.addSubview($0)
         }
         krwCoinNameLabel.snp.makeConstraints {
@@ -103,5 +107,18 @@ extension CoinTableViewCell {
             $0.centerY.equalTo(krwCoinNameLabel)
             $0.right.equalToSuperview().inset(12 * ScreenFigure.HRatioValue)
         }
+        cellControl.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+    }
+}
+
+extension CoinTableViewCell {
+    func bindAction() {
+        cellControl.addTarget(self, action: #selector(cellTapped(_ :)), for: .touchUpInside)
+    }
+    
+    @objc func cellTapped(_ sender: UIControl) {
+        cellTapAction?()
     }
 }
