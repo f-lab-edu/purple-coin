@@ -40,6 +40,14 @@ extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CoinTableViewCell(style: CoinTableViewCell.CellStyle.default, reuseIdentifier: "cell")
+        cell.cellTapAction = { [weak self] in
+            self?.cellTapAction(index: indexPath.row)
+        }
         return cell
+    }
+    
+    func cellTapAction(index: Int) {
+        let vc = DetailCoinViewController()
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
