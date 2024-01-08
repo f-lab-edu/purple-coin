@@ -18,6 +18,7 @@ class MarketViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
+        getMarketCode()
     }
     
     func setTableView() {
@@ -25,6 +26,18 @@ class MarketViewController: UIViewController {
         marketView.coinTableView.delegate = self
         marketView.coinTableView.dataSource = self
         marketView.coinTableView.reloadData()
+    }
+    
+    func getMarketCode() {
+        APIService().getKRWMarketData { result in
+            print(result)
+            switch result {
+            case .success(let data):
+                print(data)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }
 
