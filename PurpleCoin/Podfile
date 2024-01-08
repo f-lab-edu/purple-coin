@@ -5,6 +5,7 @@ target 'PurpleCoin' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 	pod 'SnapKit', '~> 5.0.0'
+	pod 'Moya'
   # Pods for PurpleCoin
 
   target 'PurpleCoinTests' do
