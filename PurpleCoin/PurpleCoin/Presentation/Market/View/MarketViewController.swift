@@ -10,6 +10,7 @@ import UIKit
 class MarketViewController: UIViewController {
     
     let marketView = MarketView()
+    let viewModel = MarketViewModel()
     
     override func loadView() {
         view = marketView
@@ -18,26 +19,13 @@ class MarketViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
-        getMarketCode()
+//        viewModel.getall
     }
     
     func setTableView() {
         marketView.coinTableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "cell")
         marketView.coinTableView.delegate = self
         marketView.coinTableView.dataSource = self
-        marketView.coinTableView.reloadData()
-    }
-    
-    func getMarketCode() {
-        APIService().getKRWMarketData { result in
-            print(result)
-            switch result {
-            case .success(let data):
-                print(data)
-            case .failure(let error):
-                print(error)
-            }
-        }
     }
 }
 
@@ -48,11 +36,15 @@ extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 20
+        return viewModel.marketData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CoinTableViewCell(style: CoinTableViewCell.CellStyle.default, reuseIdentifier: "cell")
+        guard let marketDatas = viewModel.marketData else {
+            return UITableViewCell()
+        }
+        let marketData = marketDatas[indexPath.row]
         cell.cellTapAction = { [weak self] in
             self?.cellTapAction(index: indexPath.row)
         }
