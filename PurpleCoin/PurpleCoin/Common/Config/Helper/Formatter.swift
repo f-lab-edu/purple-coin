@@ -9,6 +9,12 @@ import Foundation
 
 class Formatter {
     
+    //소수점 두자리 끊기
+    static func truncateToTwoDecimals(for number: Double) -> String {
+        let truncatedString = String(format: "%.2f", number)
+        return truncatedString
+    }
+    
     // 숫자 포맷 999999.0 -> 999,999
     static func formatNumberWithCustomRules(for number: Double) -> String {
         let formatter = NumberFormatter()
@@ -40,6 +46,29 @@ class Formatter {
             return formattedString
         } else {
             return "\(number)" // 포맷팅 실패 시, 기본 문자열 반환
+        }
+    }
+    
+    //백만 단위 포멧
+    static func formatToMillionUnit(for number: Double) -> String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        
+        let million = 1000000
+        let dividedNumber = Int(Double(number) / Double(million))
+        let formattedNumber = formatter.string(from: NSNumber(value: dividedNumber)) ?? "\(number)"
+        
+        return "\(formattedNumber)백만"
+    }
+    
+    // KRW-CoinName ->  CoinName/KRW
+    static func convertEngCoinName(_ name: String) -> String{
+        let components = name.components(separatedBy: "-")
+        if components.count == 2 {
+            let convertedName = "\(components[1])/\(components[0])"
+            return convertedName
+        } else {
+            return name
         }
     }
 }

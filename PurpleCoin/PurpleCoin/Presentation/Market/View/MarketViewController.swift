@@ -35,16 +35,6 @@ class MarketViewController: UIViewController {
         marketView.coinTableView.dataSource = self
     }
     
-    // KRW-CoinName ->  CoinName/KRW
-    func convertEngCoinName(_ name: String) -> String{
-        let components = name.components(separatedBy: "-")
-        if components.count == 2 {
-            let convertedName = "\(components[1])/\(components[0])"
-            return convertedName
-        } else {
-            return name
-        }
-    }
 }
 
 extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
@@ -66,12 +56,34 @@ extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
         }
         let marketData = marketDatas[indexPath.row]
         cell.krwCoinNameLabel.text = marketCodes.first {$0.market == marketData.market}?.koreanName ?? "??"
-        cell.englishCoinNameLabel.text = convertEngCoinName(marketData.market)
+        cell.englishCoinNameLabel.text = Formatter.convertEngCoinName(marketData.market)
         cell.currentPriceLabel.text = Formatter.formatNumberWithCustomRules(for: marketData.tradePrice)
+        cell.dtdPercentageLabel.text = Formatter.truncateToTwoDecimals(for: marketData.signedChangeRate * 100) + "%"
+        cell.dtdPriceLabel.text = Formatter.formatNumberWithCustomRules(for: marketData.signedChangePrice)
+        cell.transactionPriceLabel.text = Formatter.formatToMillionUnit(for: marketData.accTradePrice24h)
+        setColorForPriceLabels(with: marketData.change)
         cell.cellTapAction = { [weak self] in
             self?.cellTapAction(index: indexPath.row)
         }
         return cell
+        
+        // 전일대비 색상 변경
+        func setColorForPriceLabels(with state: String) {
+            var color = UIColor()
+            switch state {
+            case "EVEN":
+                color = .white
+            case "RISE":
+                color = PurpleCoinColor.red
+            case "FALL":
+                color = PurpleCoinColor.blue
+            default:
+                break
+            }
+            [cell.currentPriceLabel, cell.dtdPriceLabel, cell.dtdPercentageLabel].forEach {
+                $0.textColor = color
+            }
+        }
     }
     
     func cellTapAction(index: Int) {
