@@ -19,13 +19,31 @@ class MarketViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setTableView()
-//        viewModel.getall
+        viewModel.getKRWMarketData { err in
+            if err == nil {
+                self.marketView.coinTableView.reloadData()
+                print(self.viewModel.allMarketCode)
+            } else {
+                
+            }
+        }
     }
     
     func setTableView() {
         marketView.coinTableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "cell")
         marketView.coinTableView.delegate = self
         marketView.coinTableView.dataSource = self
+    }
+    
+    // KRW-CoinName ->  CoinName/KRW
+    func convertEngCoinName(_ name: String) -> String{
+        let components = name.components(separatedBy: "-")
+        if components.count == 2 {
+            let convertedName = "\(components[1])/\(components[0])"
+            return convertedName
+        } else {
+            return name
+        }
     }
 }
 
@@ -41,10 +59,15 @@ extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = CoinTableViewCell(style: CoinTableViewCell.CellStyle.default, reuseIdentifier: "cell")
-        guard let marketDatas = viewModel.marketData else {
+        guard let marketDatas = viewModel.marketData,
+              let marketCodes = viewModel.allMarketCode
+        else {
             return UITableViewCell()
         }
         let marketData = marketDatas[indexPath.row]
+        cell.krwCoinNameLabel.text = marketCodes.first {$0.market == marketData.market}?.koreanName ?? "??"
+        cell.englishCoinNameLabel.text = convertEngCoinName(marketData.market)
+        cell.currentPriceLabel.text = Formatter.formatNumberWithCustomRules(for: marketData.tradePrice)
         cell.cellTapAction = { [weak self] in
             self?.cellTapAction(index: indexPath.row)
         }

@@ -10,51 +10,50 @@ import Foundation
 final class MarketViewModel {
     var marketData: [MarketData]?
     var allMarketCode: [MarketCode]?
-
-    func getMarketData(completion: @escaping(() -> Void)) {
-        getKRWMarketData { result in
-            switch result {
-            case .success(let data):
-                self.marketData = data
-                completion()
-            case .failure(let error):
-                completion()
-            }
-        }
-    }
-    func getAllMarketCode(completion: @escaping ((Bool) -> Void)) {
-        APIService().getAllMarketCode { result in
-            switch result {
-            case .success(let data):
-                self.allMarketCode = data
-                completion(true)
-            case .failure(let failure):
-                completion(false)
-            }
-        }
-    }
 }
 
+// 코인 정보 가져오기
 extension MarketViewModel {
     
-    // KRW 코인 정보 가져오기
-    func getKRWMarketData(completion: @escaping (Result<[MarketData], Error>) -> Void) {
-        APIService().getAllMarketCode { result in
+    //한국 코인 정보가져오기
+    func getKRWMarketData(completion: @escaping ((Error?) -> Void)) {
+        getAllMarketCode { result in
             switch result {
-            case.success(let data):
-                let marketCodes = self.sortingMarketCode(markets: data)
-                APIService().getMarketData(marketCodes: marketCodes, completion: completion)
-            case .failure(let error):
-                print(error)
+            case .success(let data):
+                self.getMarketData(marketCodes: data) { result in
+                    switch result {
+                    case .success(let data):
+                        self.marketData = data
+                        completion(nil)
+                    case .failure(let failure):
+                        completion(failure)
+                    }
+                }
+            case .failure(let failure):
+                completion(failure)
             }
         }
     }
     
-    //KRW 코인 가져오기
+    // 전체 마켓 코드 가져오기
+    func getAllMarketCode(completion: @escaping ((Result<[MarketCode], Error>) -> Void)) {
+        APIService().getAllMarketCode { result in
+            completion(result)
+        }
+    }
+    
+    // 코인 정보 가져오기
+    func getMarketData(marketCodes: [MarketCode],  completion: @escaping (Result<[MarketData], Error>) -> Void) {
+        let convertedMarketCode = self.sortingMarketCode(markets: marketCodes)
+        APIService().getMarketData(marketCodes: convertedMarketCode, completion: completion)
+    }
+    
+    //KRW 코인코드 배열 -> string
     func sortingMarketCode(markets: [MarketCode]) -> String{
         let KRWMarkets = markets.filter { market in
             market.market.contains("KRW-")
-        }.map { $0.market }.joined(separator: ", ")
-        return KRWMarkets
+        }
+        allMarketCode = KRWMarkets
+        return KRWMarkets.map { $0.market }.joined(separator: ", ")
     }
 }
