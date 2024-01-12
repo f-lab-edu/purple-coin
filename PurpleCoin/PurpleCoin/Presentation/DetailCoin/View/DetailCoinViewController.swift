@@ -10,6 +10,9 @@ import UIKit
 class DetailCoinViewController: UIViewController {
     
     let detailCoinView = DetailCoinView()
+    let viewModel = DetailCoinViewModel()
+    var marketCode: String
+    var krwName: String
     
     override func loadView() {
         super.loadView()
@@ -18,8 +21,21 @@ class DetailCoinViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.getMarketData(marketCode: marketCode) { [self] _ in
+            detailCoinView.setAttributes(krwName: krwName, marketData: viewModel.marketData)
+        }
         bindAction()
         setTableView()
+    }
+    
+    init(krwName: String, marketCode: String) {
+        self.krwName = krwName
+        self.marketCode = marketCode
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setTableView() {

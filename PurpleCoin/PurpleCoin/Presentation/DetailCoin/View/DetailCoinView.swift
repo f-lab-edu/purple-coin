@@ -54,13 +54,11 @@ class DetailCoinView: UIView {
     let coinPriceLabel: UILabel = {
         let label = UILabel()
         label.font = Font.priceLabelFont
-        label.text = "135"
         return label
     }()
-    let coinDTDPercentLabel: UILabel = {
+    let coinDTDLabel: UILabel = {
         let label = UILabel()
         label.font = Font.priceLabelFont
-        label.text = "11.89%"
         return label
     }()
     
@@ -178,17 +176,54 @@ extension DetailCoinView {
     }
     
     func setCoinInformationView() {
-        [coinPriceLabel, coinDTDPercentLabel].forEach {
+        [coinPriceLabel, coinDTDLabel].forEach {
             coinInformationView.addSubview($0)
         }
         coinPriceLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(10 * ScreenFigure.VRatioValue)
             $0.left.equalToSuperview().inset(12 * ScreenFigure.HRatioValue)
         }
-        coinDTDPercentLabel.snp.makeConstraints {
+        coinDTDLabel.snp.makeConstraints {
             $0.left.equalToSuperview().inset(12 * ScreenFigure.HRatioValue)
             $0.top.equalTo(coinPriceLabel.snp.bottom).offset(4 * ScreenFigure.VRatioValue)
             $0.bottom.equalToSuperview().inset(10 * ScreenFigure.VRatioValue)
+        }
+    }
+}
+
+//MARK: SetAttributes
+extension DetailCoinView {
+    func setAttributes(krwName: String, marketData: MarketData?) {
+        guard let marketData = marketData else {
+            return
+        }
+        let formattedData = formattData()
+        topTitleLabel.text = krwName
+        coinPriceLabel.text = formattedData.currentPrice
+        var arrow = ""
+        var color = UIColor.white
+        switch marketData.change {
+        case "EVEN":
+            break
+        case "RISE":
+            arrow = "▲"
+            color = PurpleCoinColor.red
+        case "FALL":
+            arrow = "▼"
+            color = PurpleCoinColor.blue
+        default:
+            break
+        }
+        coinDTDLabel.text = "\(formattedData.dtdPercent) \(arrow)\(formattedData.dtdPrice)"
+        coinPriceLabel.textColor = color
+        coinDTDLabel.textColor = color
+        
+        func formattData() -> (currentPrice: String, dtdPercent: String, dtdPrice: String) {
+            return (
+                currentPrice: Formatter.formatNumberWithCustomRules(for: marketData.tradePrice),
+                dtdPercent: Formatter.truncateToTwoDecimals(for: marketData.signedChangeRate * 100) + "%",
+                dtdPrice: Formatter.formatNumberWithCustomRules(for: marketData.signedChangePrice)
+            )
         }
     }
 }

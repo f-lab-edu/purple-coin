@@ -14,7 +14,6 @@ final class MarketViewModel {
 
 // 코인 정보 가져오기
 extension MarketViewModel {
-    
     //한국 코인 정보가져오기
     func getKRWMarketData(completion: @escaping ((Error?) -> Void)) {
         getAllMarketCode { result in

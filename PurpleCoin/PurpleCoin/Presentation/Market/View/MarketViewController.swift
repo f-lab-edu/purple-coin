@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MarketViewController: UIViewController {
+final class MarketViewController: UIViewController {
     
     let marketView = MarketView()
     let viewModel = MarketViewModel()
@@ -22,7 +22,6 @@ class MarketViewController: UIViewController {
         viewModel.getKRWMarketData { err in
             if err == nil {
                 self.marketView.coinTableView.reloadData()
-                print(self.viewModel.allMarketCode)
             } else {
                 
             }
@@ -34,7 +33,6 @@ class MarketViewController: UIViewController {
         marketView.coinTableView.delegate = self
         marketView.coinTableView.dataSource = self
     }
-    
 }
 
 extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
@@ -55,15 +53,16 @@ extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let marketData = marketDatas[indexPath.row]
-        cell.krwCoinNameLabel.text = marketCodes.first {$0.market == marketData.market}?.koreanName ?? "??"
-        cell.englishCoinNameLabel.text = Formatter.convertEngCoinName(marketData.market)
-        cell.currentPriceLabel.text = Formatter.formatNumberWithCustomRules(for: marketData.tradePrice)
-        cell.dtdPercentageLabel.text = Formatter.truncateToTwoDecimals(for: marketData.signedChangeRate * 100) + "%"
-        cell.dtdPriceLabel.text = Formatter.formatNumberWithCustomRules(for: marketData.signedChangePrice)
-        cell.transactionPriceLabel.text = Formatter.formatToMillionUnit(for: marketData.accTradePrice24h)
+        let formattedData = formattData()
+        cell.krwCoinNameLabel.text = formattedData.krwCoinName
+        cell.englishCoinNameLabel.text = formattedData.englishCoinName
+        cell.currentPriceLabel.text = formattedData.currentPrice
+        cell.dtdPercentageLabel.text = formattedData.dtdPercentage
+        cell.dtdPriceLabel.text = formattedData.dtdPrice
+        cell.transactionPriceLabel.text = formattedData.transactionPrice
         setColorForPriceLabels(with: marketData.change)
-        cell.cellTapAction = { [weak self] in
-            self?.cellTapAction(index: indexPath.row)
+        cell.cellTapAction = {
+            cellTapAction(index: indexPath.row)
         }
         return cell
         
@@ -84,10 +83,22 @@ extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
                 $0.textColor = color
             }
         }
-    }
-    
-    func cellTapAction(index: Int) {
-        let vc = DetailCoinViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        
+        // 데이터 포멧
+        func formattData() -> (krwCoinName: String, englishCoinName: String, currentPrice: String, dtdPercentage: String, dtdPrice: String, transactionPrice: String) {
+            return (
+                krwCoinName: marketCodes.first {$0.market == marketData.market}?.koreanName ?? "??",
+                englishCoinName: Formatter.convertEngCoinName(marketData.market),
+                currentPrice: Formatter.formatNumberWithCustomRules(for: marketData.tradePrice),
+                dtdPercentage: Formatter.truncateToTwoDecimals(for: marketData.signedChangeRate * 100) + "%",
+                dtdPrice: Formatter.formatNumberWithCustomRules(for: marketData.signedChangePrice),
+                transactionPrice: Formatter.formatToMillionUnit(for: marketData.accTradePrice24h)
+            )
+        }
+        
+        func cellTapAction(index: Int) {
+            let vc = DetailCoinViewController(krwName: formattedData.krwCoinName, marketCode: marketData.market)
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }

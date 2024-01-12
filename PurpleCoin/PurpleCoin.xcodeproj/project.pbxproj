@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		402BDC372B50E01400137E90 /* DetailCoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402BDC362B50E01400137E90 /* DetailCoinViewModel.swift */; };
 		409286842B3515D100E89F62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409286832B3515D100E89F62 /* AppDelegate.swift */; };
 		409286862B3515D100E89F62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409286852B3515D100E89F62 /* SceneDelegate.swift */; };
 		4092868D2B3515D300E89F62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4092868C2B3515D300E89F62 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		13891B952BD7B187B6A35270 /* Pods_PurpleCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PurpleCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		402BDC362B50E01400137E90 /* DetailCoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoinViewModel.swift; sourceTree = "<group>"; };
 		409286802B3515D100E89F62 /* PurpleCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PurpleCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		409286832B3515D100E89F62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		409286852B3515D100E89F62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		402BDC352B50E00700137E90 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				402BDC362B50E01400137E90 /* DetailCoinViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		409286772B3515D100E89F62 = {
 			isa = PBXGroup;
 			children = (
@@ -229,6 +239,7 @@
 		409286C02B351AC000E89F62 /* DetailCoin */ = {
 			isa = PBXGroup;
 			children = (
+				402BDC352B50E00700137E90 /* ViewModel */,
 				79C5A39C2B4AF15B00EC25BE /* Cell */,
 				409286C32B351B0000E89F62 /* View */,
 			);
@@ -684,6 +695,7 @@
 				409286862B3515D100E89F62 /* SceneDelegate.swift in Sources */,
 				79CDA68F2B36C02100633B65 /* AssetViewController.swift in Sources */,
 				79CDA6832B36AF9B00633B65 /* BottomNavigationView.swift in Sources */,
+				402BDC372B50E01400137E90 /* DetailCoinViewModel.swift in Sources */,
 				79A448D72B3873B800A18516 /* CoinTableViewCell.swift in Sources */,
 				409286D22B3568DA00E89F62 /* MarketViewController.swift in Sources */,
 				409286DA2B35703000E89F62 /* Constants.swift in Sources */,

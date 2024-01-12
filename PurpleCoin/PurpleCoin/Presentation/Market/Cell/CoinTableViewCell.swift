@@ -19,15 +19,13 @@ class CoinTableViewCell: UITableViewCell {
     // 코인 이름 - 한국 
     let krwCoinNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "도지코인"
         label.textColor = .white
         label.font = Font.defaultLabelFont
         return label
     }()
-    // 코인 이름 - 한국
+    // 코인 이름 - 영어
     let englishCoinNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "DOGE/KRW"
         label.textColor = PurpleCoinColor.gray
         label.font = Font.smallLabelFont
         return label
@@ -35,7 +33,6 @@ class CoinTableViewCell: UITableViewCell {
     // 현재가
     let currentPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "135"
         label.textColor = .white
         label.font = Font.defaultLabelFont
         return label
@@ -43,7 +40,6 @@ class CoinTableViewCell: UITableViewCell {
     // 전일대비 - 퍼센트
     let dtdPercentageLabel: UILabel = {
         let label = UILabel()
-        label.text = "11.89"
         label.textColor = .white
         label.font = Font.defaultLabelFont
         return label
@@ -51,7 +47,6 @@ class CoinTableViewCell: UITableViewCell {
     // 전일대비 - 가격
     let dtdPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "11.89"
         label.textColor = .white
         label.font = Font.smallLabelFont
         return label
@@ -59,7 +54,6 @@ class CoinTableViewCell: UITableViewCell {
     // 거래대금
     let transactionPriceLabel: UILabel = {
         let label = UILabel()
-        label.text = "316,101백만"
         label.textColor = .white
         label.font = Font.defaultLabelFont
         return label
@@ -113,6 +107,7 @@ extension CoinTableViewCell {
     }
 }
 
+//MARK: BindAction
 extension CoinTableViewCell {
     func bindAction() {
         cellControl.addTarget(self, action: #selector(cellTapped(_ :)), for: .touchUpInside)
@@ -120,5 +115,14 @@ extension CoinTableViewCell {
     
     @objc func cellTapped(_ sender: UIControl) {
         cellTapAction?()
+    }
+}
+
+//MARK: SetAttribute
+
+extension CoinTableViewCell {
+    
+    func setAttributes() {
+        
     }
 }

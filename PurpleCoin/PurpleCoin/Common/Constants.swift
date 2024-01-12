@@ -66,3 +66,9 @@ enum PurpleCoinColor {
     static let blue = UIColor(red: 0.313, green: 0.423, blue: 1, alpha: 1)
     static let selectColor = UIColor(red: 0.897, green: 0.573, blue: 1, alpha: 1)
 }
+
+enum CoinChange {
+    case rise
+    case even
+    case fall
+}
