@@ -13,6 +13,7 @@ enum API {
     // 전체 마켓 코드 가져오기
     case getAllMarketCode
     case getMarketInfo(marketCodes: String)
+    case getOrderBook(marketCodes: String)
 }
 
 extension API: TargetType {
@@ -27,13 +28,16 @@ extension API: TargetType {
             return "/market/all"
         case .getMarketInfo:
             return "/ticker"
+        case .getOrderBook:
+            return "/orderbook"
         }
     }
     
     var method: Moya.Method {
         switch self {
         case .getAllMarketCode,
-             .getMarketInfo:
+             .getMarketInfo,
+             .getOrderBook:
             return .get
         }
     }
@@ -41,7 +45,8 @@ extension API: TargetType {
     var task: Moya.Task {
         let parameter: [String: Any] = self.parameter ?? [:]
         switch self {
-        case .getMarketInfo:
+        case  .getMarketInfo,
+            .getOrderBook:
             return .requestParameters(parameters: parameter, encoding: URLEncoding.queryString)
         default:
             return .requestPlain
@@ -54,7 +59,8 @@ extension API: TargetType {
     
     var parameter: [String: Any]? {
         switch self {
-        case .getMarketInfo(marketCodes: let market):
+        case .getMarketInfo(marketCodes: let market),
+                .getOrderBook(marketCodes: let market):
             return [
                 "markets": market
             ]

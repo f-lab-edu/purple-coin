@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		402BDC372B50E01400137E90 /* DetailCoinViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402BDC362B50E01400137E90 /* DetailCoinViewModel.swift */; };
+		402BDC392B50EC7400137E90 /* OrderBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 402BDC382B50EC7400137E90 /* OrderBook.swift */; };
 		409286842B3515D100E89F62 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409286832B3515D100E89F62 /* AppDelegate.swift */; };
 		409286862B3515D100E89F62 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 409286852B3515D100E89F62 /* SceneDelegate.swift */; };
 		4092868D2B3515D300E89F62 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4092868C2B3515D300E89F62 /* Assets.xcassets */; };
@@ -64,6 +65,7 @@
 /* Begin PBXFileReference section */
 		13891B952BD7B187B6A35270 /* Pods_PurpleCoin.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PurpleCoin.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		402BDC362B50E01400137E90 /* DetailCoinViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCoinViewModel.swift; sourceTree = "<group>"; };
+		402BDC382B50EC7400137E90 /* OrderBook.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderBook.swift; sourceTree = "<group>"; };
 		409286802B3515D100E89F62 /* PurpleCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PurpleCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		409286832B3515D100E89F62 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		409286852B3515D100E89F62 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -348,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				79C5A3AD2B4BCDBF00EC25BE /* Market.swift */,
+				402BDC382B50EC7400137E90 /* OrderBook.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -693,6 +696,7 @@
 				79C5A3A52B4BC95100EC25BE /* OrderBookTableViewCell.swift in Sources */,
 				409286D62B35695700E89F62 /* DetailCoinViewController.swift in Sources */,
 				409286862B3515D100E89F62 /* SceneDelegate.swift in Sources */,
+				402BDC392B50EC7400137E90 /* OrderBook.swift in Sources */,
 				79CDA68F2B36C02100633B65 /* AssetViewController.swift in Sources */,
 				79CDA6832B36AF9B00633B65 /* BottomNavigationView.swift in Sources */,
 				402BDC372B50E01400137E90 /* DetailCoinViewModel.swift in Sources */,

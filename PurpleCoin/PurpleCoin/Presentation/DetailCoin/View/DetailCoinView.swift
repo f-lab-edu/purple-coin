@@ -76,6 +76,7 @@ class DetailCoinView: UIView {
         tableView.allowsSelection = false
         tableView.isUserInteractionEnabled = true
         tableView.separatorStyle = .none
+        tableView.bounces = false
         return tableView
     }()
     
