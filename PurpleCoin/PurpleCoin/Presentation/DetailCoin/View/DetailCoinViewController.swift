@@ -25,6 +25,7 @@ class DetailCoinViewController: UIViewController {
             detailCoinView.setAttributes(krwName: krwName, marketData: viewModel.marketData)
             viewModel.getOrderBookData(marketCode: marketCode) { [self] _ in
                 detailCoinView.orderBookTableView.reloadData()
+//                moveToIndexPath()
             }
         }
         bindAction()
@@ -46,6 +47,17 @@ class DetailCoinViewController: UIViewController {
         detailCoinView.orderBookTableView.delegate = self
         detailCoinView.orderBookTableView.dataSource = self
     }
+    
+    func moveToIndexPath() {
+         // 이동하려는 셀의 현재 위치 (원래 위치)
+         let fromIndexPath = IndexPath(row: 17, section: 0)  // 18번째 셀의 인덱스
+
+         // 이동하려는 셀의 목표 위치
+         let toIndexPath = IndexPath(row: 5, section: 0)   // 이동하고 싶은 위치의 인덱스
+
+         // moveRow 메서드를 사용하여 셀 이동
+        detailCoinView.orderBookTableView.moveRow(at: fromIndexPath, to: toIndexPath)
+     }
 }
 
 //MARK: BindAciton
@@ -64,6 +76,7 @@ extension DetailCoinViewController {
     }
 }
 
+//MARK: Tableview
 extension DetailCoinViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -71,7 +84,7 @@ extension DetailCoinViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.orderBookData?.orderbookUnits.count ?? 0
+        return (viewModel.orderBookData?.orderbookUnits.count ?? 0) * 2
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -81,21 +94,32 @@ extension DetailCoinViewController: UITableViewDelegate, UITableViewDataSource {
         else {
             return UITableViewCell()
         }
-        let orderBookUnit = orderBookData.orderbookUnits[indexPath.row]
+        let orderBookUnits = orderBookData.orderbookUnits
+        let isAsk = indexPath.row < orderBookUnits.count
+        var orderBookUnit: OrderBookUnit
+        if isAsk {
+            orderBookUnit = orderBookUnits.reversed()[indexPath.row]
+        } else {
+            orderBookUnit = orderBookUnits[indexPath.row - orderBookUnits.count]
+        }
+        
         let formattedData = formattData()
-        cell.priceLabel.text = formattedData.askPrice
-        cell.amountLabel.text = formattedData.askSize
+        cell.priceLabel.text = formattedData.price
+        cell.amountLabel.text = formattedData.size
+        cell.percentageLabel.text = formattedData.dtdPercentage
+        let ratio = isAsk ? orderBookUnit.askSize/orderBookData.totalAskSize : orderBookUnit.bidSize/orderBookData.totalBidSize
         cell.barView.snp.makeConstraints {
-            $0.width.equalTo(ScreenFigure.bounds.width * orderBookUnit.askSize/orderBookData.totalAskSize)
+            $0.width.equalTo(ScreenFigure.bounds.width * ratio)
         }
         setCellAttributes()
         return cell
         
-        func formattData() -> (askPrice: String, dtdPercentage: String, askSize: String) {
+        func formattData() -> (price: String, dtdPercentage: String, size: String) {
+            let price = isAsk ? orderBookUnit.askPrice : orderBookUnit.bidPrice
             return (
-                askPrice: Formatter.formatNumberWithCustomRules(for: orderBookUnit.askPrice),
-                dtdPercentage: "%",
-                askSize: Formatter.formatNumberWithCustomRules(for: orderBookUnit.askSize)
+                price: Formatter.formatNumberWithCustomRules(for: price),
+                dtdPercentage: Formatter.truncateToTwoDecimals(for: (price - marketData.openingPrice)/marketData.openingPrice * 100) + "%",
+                size: Formatter.formatNumberWithCustomRules(for: orderBookUnit.bidSize)
             )
         }
         
@@ -103,18 +127,21 @@ extension DetailCoinViewController: UITableViewDelegate, UITableViewDataSource {
             var bgColor = UIColor.clear
             var labelColor = UIColor.clear
             var barColor = UIColor.clear
-            if marketData.openingPrice < orderBookUnit.askPrice {
+            let price = isAsk ? orderBookUnit.askPrice : orderBookUnit.bidPrice
+            if isAsk {
                 bgColor = UIColor(red: 0.145, green: 0.067, blue: 0.227, alpha: 1)
-                labelColor = PurpleCoinColor.blue
                 barColor = .blue
-            } else if marketData.openingPrice == orderBookUnit.askPrice {
-                bgColor = UIColor(red: 0.145, green: 0.067, blue: 0.227, alpha: 1)
-                labelColor = .white
-                barColor = .blue
-            } else if marketData.openingPrice > orderBookUnit.askPrice {
+            } else {
                 bgColor = UIColor(red: 0.369, green: 0.043, blue: 0.02, alpha: 1)
-                labelColor = PurpleCoinColor.red
                 barColor = .red
+            }
+            
+            if marketData.openingPrice < price {
+                labelColor = PurpleCoinColor.red
+            } else if marketData.openingPrice == price {
+                labelColor = .white
+            } else if marketData.openingPrice > price {
+                labelColor = PurpleCoinColor.blue
             }
             cell.backgroundColor = bgColor
             cell.priceLabel.textColor = labelColor
