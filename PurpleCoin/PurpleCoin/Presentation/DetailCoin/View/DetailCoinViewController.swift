@@ -25,11 +25,11 @@ class DetailCoinViewController: UIViewController {
             detailCoinView.setAttributes(krwName: krwName, marketData: viewModel.marketData)
             viewModel.getOrderBookData(marketCode: marketCode) { [self] _ in
                 detailCoinView.orderBookTableView.reloadData()
-//                moveToIndexPath()
             }
         }
         bindAction()
         setTableView()
+        setInterestButton()
     }
     
     init(krwName: String, marketCode: String) {
@@ -48,16 +48,9 @@ class DetailCoinViewController: UIViewController {
         detailCoinView.orderBookTableView.dataSource = self
     }
     
-    func moveToIndexPath() {
-         // 이동하려는 셀의 현재 위치 (원래 위치)
-         let fromIndexPath = IndexPath(row: 17, section: 0)  // 18번째 셀의 인덱스
-
-         // 이동하려는 셀의 목표 위치
-         let toIndexPath = IndexPath(row: 5, section: 0)   // 이동하고 싶은 위치의 인덱스
-
-         // moveRow 메서드를 사용하여 셀 이동
-        detailCoinView.orderBookTableView.moveRow(at: fromIndexPath, to: toIndexPath)
-     }
+    func setInterestButton() {
+        detailCoinView.interestButton.isSelected = UserConfig.shared.intrestedCoins.contains(marketCode)
+    }
 }
 
 //MARK: BindAciton
@@ -73,6 +66,14 @@ extension DetailCoinViewController {
     
     @objc func interestButtonTapped(_ sender: UIButton) {
         sender.isSelected.toggle()
+        switch sender.isSelected {
+        case true:
+            UserConfig.shared.intrestedCoins.append(marketCode)
+        case false:
+            if let indexToRemove = UserConfig.shared.intrestedCoins.firstIndex(of: marketCode) {
+                UserConfig.shared.intrestedCoins.remove(at: indexToRemove)
+            }
+        }
     }
 }
 

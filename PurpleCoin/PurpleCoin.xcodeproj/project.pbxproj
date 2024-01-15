@@ -35,6 +35,7 @@
 		79C5A3AE2B4BCDBF00EC25BE /* Market.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C5A3AD2B4BCDBF00EC25BE /* Market.swift */; };
 		79C5A3B12B4BE7E400EC25BE /* MarketViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C5A3B02B4BE7E400EC25BE /* MarketViewModel.swift */; };
 		79C5A3B42B4D6A3400EC25BE /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C5A3B32B4D6A3400EC25BE /* Formatter.swift */; };
+		79C5A3B62B55188400EC25BE /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79C5A3B52B55188400EC25BE /* UserConfig.swift */; };
 		79CDA6832B36AF9B00633B65 /* BottomNavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CDA6822B36AF9B00633B65 /* BottomNavigationView.swift */; };
 		79CDA6872B36AFD900633B65 /* UIDevice+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CDA6862B36AFD900633B65 /* UIDevice+.swift */; };
 		79CDA68A2B36B16F00633B65 /* home.png in Resources */ = {isa = PBXBuildFile; fileRef = 79CDA6892B36B16E00633B65 /* home.png */; };
@@ -96,6 +97,7 @@
 		79C5A3AD2B4BCDBF00EC25BE /* Market.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Market.swift; sourceTree = "<group>"; };
 		79C5A3B02B4BE7E400EC25BE /* MarketViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketViewModel.swift; sourceTree = "<group>"; };
 		79C5A3B32B4D6A3400EC25BE /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
+		79C5A3B52B55188400EC25BE /* UserConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		79CDA6822B36AF9B00633B65 /* BottomNavigationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BottomNavigationView.swift; sourceTree = "<group>"; };
 		79CDA6862B36AFD900633B65 /* UIDevice+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+.swift"; sourceTree = "<group>"; };
 		79CDA6892B36B16E00633B65 /* home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = home.png; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 			children = (
 				79C5A3B22B4D69FE00EC25BE /* Helper */,
 				79C5A3A92B4BCAA000EC25BE /* NetworkConfig.swift */,
+				79C5A3B52B55188400EC25BE /* UserConfig.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				79C5A3A32B4BC8ED00EC25BE /* API.swift in Sources */,
 				79C5A3AA2B4BCAA000EC25BE /* NetworkConfig.swift in Sources */,
 				409286842B3515D100E89F62 /* AppDelegate.swift in Sources */,
+				79C5A3B62B55188400EC25BE /* UserConfig.swift in Sources */,
 				79C5A3A72B4BC9A800EC25BE /* APIService.swift in Sources */,
 				79C5A3A52B4BC95100EC25BE /* OrderBookTableViewCell.swift in Sources */,
 				409286D62B35695700E89F62 /* DetailCoinViewController.swift in Sources */,

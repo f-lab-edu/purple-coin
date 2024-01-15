@@ -26,7 +26,7 @@ final class DetailCoinViewModel {
     }
     
     func getOrderBookData(marketCode: String, completion: @escaping (Result<[OrderBook], Error>) -> Void) {
-        APIService().getOrderBookDataa(marketCodes: marketCode, completion: { result in
+        APIService().getOrderBookData(marketCodes: marketCode, completion: { result in
             switch result {
             case .success(let data):
                 self.orderBookData = data[0]

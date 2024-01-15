@@ -9,16 +9,43 @@ import UIKit
 
 final class MarketViewController: UIViewController {
     
+    enum SortingType {
+        case all
+        case intrested
+    }
+    
     let marketView = MarketView()
     let viewModel = MarketViewModel()
+    
+    var sortingType: SortingType = .all
     
     override func loadView() {
         view = marketView
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        switch sortingType {
+        case .all:
+            getKRWMarketData()
+        case .intrested:
+            getSpecificMarketData()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        bindAction()
         setTableView()
+    }
+    
+    func setTableView() {
+        marketView.coinTableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "cell")
+        marketView.coinTableView.delegate = self
+        marketView.coinTableView.dataSource = self
+    }
+    
+    func getKRWMarketData() {
         viewModel.getKRWMarketData { err in
             if err == nil {
                 self.marketView.coinTableView.reloadData()
@@ -28,13 +55,45 @@ final class MarketViewController: UIViewController {
         }
     }
     
-    func setTableView() {
-        marketView.coinTableView.register(CoinTableViewCell.self, forCellReuseIdentifier: "cell")
-        marketView.coinTableView.delegate = self
-        marketView.coinTableView.dataSource = self
+    func getSpecificMarketData() {
+        viewModel.getMarketData(marketCodes: UserConfig.shared.intrestedCoins) { err in
+            if err == nil {
+                self.marketView.coinTableView.reloadData()
+            } else {
+                print(err is DecodingError)
+            }
+        }
     }
 }
 
+//MARK: BindAction
+extension MarketViewController {
+    func bindAction() {
+        marketView.sortingOfAllButton.addTarget(self, action: #selector(sortingButtonTapped(_ :)), for: .touchUpInside)
+        marketView.sortingOfIntrestButton.addTarget(self, action: #selector(sortingButtonTapped(_ :)), for: .touchUpInside)
+    }
+    
+    @objc func sortingButtonTapped(_ sender: UIButton) {
+        guard let _ = viewModel.marketData else {
+            return
+        }
+        [marketView.sortingOfAllButton, marketView.sortingOfIntrestButton].forEach {
+            $0.layer.borderColor = UIColor.white.cgColor
+            $0.setTitleColor(.white, for: .normal)
+        }
+        sender.layer.borderColor = PurpleCoinColor.selectColor.cgColor
+        sender.setTitleColor(PurpleCoinColor.selectColor, for: .normal)
+        if sender == marketView.sortingOfAllButton {
+            sortingType = .all
+            getKRWMarketData()
+        } else {
+            sortingType = .intrested
+            getSpecificMarketData()
+        }
+    }
+}
+
+//MARK: TableView
 extension MarketViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

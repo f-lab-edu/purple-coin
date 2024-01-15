@@ -127,10 +127,9 @@ class MarketView: UIView {
     let sortingOfAllButton: UIButton = {
         let button = UIButton()
         button.setTitle("전체(KRW)", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(PurpleCoinColor.selectColor, for: .selected)
+        button.setTitleColor(PurpleCoinColor.selectColor, for: .normal)
         button.titleLabel?.font = Font.sortingButtonFont
-        button.layer.borderColor = UIColor.white.cgColor
+        button.layer.borderColor = PurpleCoinColor.selectColor.cgColor
         button.layer.borderWidth = 1
         return button
     }()
@@ -138,7 +137,6 @@ class MarketView: UIView {
         let button = UIButton()
         button.setTitle("관심", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.setTitleColor(PurpleCoinColor.selectColor, for: .selected)
         button.titleLabel?.font = Font.sortingButtonFont
         button.layer.borderColor = UIColor.white.cgColor
         button.layer.borderWidth = 1

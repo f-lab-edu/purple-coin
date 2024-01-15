@@ -21,10 +21,9 @@ final class APIService {
         request(target: .getMarketInfo(marketCodes: marketCodes), completion: completion)
     }
     
-    func getOrderBookDataa(marketCodes: String ,completion: @escaping (Result<[OrderBook], Error>) -> Void) {
+    func getOrderBookData(marketCodes: String ,completion: @escaping (Result<[OrderBook], Error>) -> Void) {
         request(target: .getOrderBook(marketCodes: marketCodes), completion: completion)
     }
-    
 }
 
 private extension APIService {

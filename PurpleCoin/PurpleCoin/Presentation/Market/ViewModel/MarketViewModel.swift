@@ -41,10 +41,25 @@ extension MarketViewModel {
         }
     }
     
-    // 코인 정보 가져오기
-    func getMarketData(marketCodes: [MarketCode],  completion: @escaping (Result<[MarketData], Error>) -> Void) {
+    // 코인 정보 가져오기 - [MarketCode]
+    func getMarketData(marketCodes: [MarketCode], completion: @escaping (Result<[MarketData], Error>) -> Void) {
         let convertedMarketCode = self.sortingMarketCode(markets: marketCodes)
         APIService().getMarketData(marketCodes: convertedMarketCode, completion: completion)
+    }
+    
+    // 코인 정보 가져오기 - [String]
+    func getMarketData(marketCodes: [String], completion: @escaping ((Error?) -> Void)) {
+        let convertedMarketCode = marketCodes.joined(separator: ", ")
+        print(convertedMarketCode)
+        APIService().getMarketData(marketCodes: convertedMarketCode) { result in
+            switch result {
+            case .success(let data):
+                self.marketData = data
+                completion(nil)
+            case .failure(let failure):
+                completion(failure)
+            }
+        }
     }
     
     //KRW 코인코드 배열 -> string
