@@ -96,24 +96,28 @@ extension DetailCoinViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         let orderBookUnits = orderBookData.orderbookUnits
-        let isAsk = indexPath.row < orderBookUnits.count
+        
         var orderBookUnit: OrderBookUnit
+        let isAsk = indexPath.row < orderBookUnits.count
         if isAsk {
             orderBookUnit = orderBookUnits.reversed()[indexPath.row]
         } else {
             orderBookUnit = orderBookUnits[indexPath.row - orderBookUnits.count]
         }
-        
-        let formattedData = formattData()
-        cell.priceLabel.text = formattedData.price
-        cell.amountLabel.text = formattedData.size
-        cell.percentageLabel.text = formattedData.dtdPercentage
-        let ratio = isAsk ? orderBookUnit.askSize/orderBookData.totalAskSize : orderBookUnit.bidSize/orderBookData.totalBidSize
-        cell.barView.snp.makeConstraints {
-            $0.width.equalTo(ScreenFigure.bounds.width * ratio)
-        }
+        bindData()
         setCellAttributes()
         return cell
+        
+        func bindData() {
+            let formattedData = formattData()
+            cell.priceLabel.text = formattedData.price
+            cell.amountLabel.text = formattedData.size
+            cell.percentageLabel.text = formattedData.dtdPercentage
+            let ratio = isAsk ? orderBookUnit.askSize/orderBookData.totalAskSize : orderBookUnit.bidSize/orderBookData.totalBidSize
+            cell.barView.snp.makeConstraints {
+                $0.width.equalTo(ScreenFigure.bounds.width * ratio)
+            }
+        }
         
         func formattData() -> (price: String, dtdPercentage: String, size: String) {
             let price = isAsk ? orderBookUnit.askPrice : orderBookUnit.bidPrice

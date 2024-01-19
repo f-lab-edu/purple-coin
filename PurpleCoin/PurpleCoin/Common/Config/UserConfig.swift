@@ -7,18 +7,21 @@
 
 import Foundation
 
-import Foundation
-
-class UserConfig {
+final class UserConfig {
     static let shared = UserConfig()
     let userDefaults = UserDefaults()
+    
+    private enum Keys {
+        static let interestedCoins = "interestedCoins"
+    }
+    
     var intrestedCoins: [String] {
         get {
-            let savedData = userDefaults.stringArray(forKey: "intrestedCoins") ?? []
+            let savedData = userDefaults.stringArray(forKey: Keys.interestedCoins) ?? []
             return savedData
         }
         set {
-            userDefaults.set(newValue, forKey: "intrestedCoins")
+            userDefaults.set(newValue, forKey: Keys.interestedCoins)
             userDefaults.synchronize()
         }
     }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailCoinView: UIView {
+final class DetailCoinView: UIView {
     
     private enum Font {
         static let topTitleLabelFont = PurpleCoinFont.font(type: .bold, size: 20)
@@ -79,45 +79,6 @@ class DetailCoinView: UIView {
         tableView.bounces = false
         return tableView
     }()
-    
-    //MARK: orderSection
-//    let orderView: UIView = {
-//        let view = UIView()
-//        return view
-//    }()
-//    let orderTitleLabel: UILabel = {
-//        let label = UILabel()
-//        label.text = "매수/매도"
-//        label.font = Font.defaultFont
-//        return label
-//    }()
-//    let designatedButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("지정", for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-//        button.titleLabel?.font = Font.defaultFont
-//        button.layer.borderColor = UIColor.white.cgColor
-//        button.layer.borderWidth = 1
-//        return button
-//    }()
-//    let marketButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("시장", for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-//        button.titleLabel?.font = Font.defaultFont
-//        button.layer.borderColor = UIColor.white.cgColor
-//        button.layer.borderWidth = 1
-//        return button
-//    }()
-//    let reserveButton: UIButton = {
-//        let button = UIButton()
-//        button.setTitle("예약", for: .normal)
-//        button.setTitleColor(.white, for: .normal)
-//        button.titleLabel?.font = Font.defaultFont
-//        button.layer.borderColor = UIColor.white.cgColor
-//        button.layer.borderWidth = 1
-//        return button
-//    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)

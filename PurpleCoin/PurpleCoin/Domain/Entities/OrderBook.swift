@@ -30,9 +30,9 @@ struct OrderBookUnit: Codable {
     let bidSize: Double
     
     enum CodingKeys: String, CodingKey {
-          case askPrice = "ask_price"
-          case bidPrice = "bid_price"
-          case askSize = "ask_size"
-          case bidSize = "bid_size"
-      }
+        case askPrice = "ask_price"
+        case bidPrice = "bid_price"
+        case askSize = "ask_size"
+        case bidSize = "bid_size"
+    }
 }

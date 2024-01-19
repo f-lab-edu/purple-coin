@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OrderBookTableViewCell: UITableViewCell {
+final class OrderBookTableViewCell: UITableViewCell {
     
     private enum Font {
         static let defaultFont = PurpleCoinFont.font(type: .regular, size: 14)

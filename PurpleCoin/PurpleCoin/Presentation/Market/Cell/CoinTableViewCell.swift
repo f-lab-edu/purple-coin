@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CoinTableViewCell: UITableViewCell {
+final class CoinTableViewCell: UITableViewCell {
     
     private enum Font {
         static let defaultLabelFont = PurpleCoinFont.font(type: .medium, size: 12)

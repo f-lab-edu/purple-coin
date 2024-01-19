@@ -14,27 +14,17 @@ enum ScreenFigure {
     static let margin: CGFloat = 17
     
     static func notchHeight() -> CGFloat {
-        if UIDevice.current.isNotch {
-            return 0.0
-        } else {
-            return 24.0
-        }
+        return UIDevice.current.isNotch ? 0.0 : 24.0
     }
     
+    // TopView 노치가 있을때 없을때 Height
     static func topViewHeight() -> CGFloat {
-        if UIDevice.current.isNotch {
-            return 110 * ScreenFigure.VRatioValue
-        } else {
-            return 70
-        }
+        return UIDevice.current.isNotch ? 110 * HRatioValue : 70
     }
     
+    // BottomView 노치가(홈버튼) 있을때 없을때 Height
     static func bottomNavigationViewHeight() -> CGFloat {
-        if UIDevice.current.isNotch {
-            return 80 * ScreenFigure.VRatioValue
-        } else {
-            return 70 * ScreenFigure.VRatioValue
-        }
+        return UIDevice.current.isNotch ? 80 * HRatioValue : 70 * HRatioValue
     }
 }
 

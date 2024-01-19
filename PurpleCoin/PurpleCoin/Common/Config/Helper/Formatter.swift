@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Formatter {
+final class Formatter {
     
     //소수점 두자리 끊기
     static func truncateToTwoDecimals(for number: Double) -> String {
@@ -15,25 +15,27 @@ class Formatter {
         return truncatedString
     }
     
-    // 숫자 포맷 999999.0 -> 999,999
+    // 가격표시 포멧
     static func formatNumberWithCustomRules(for number: Double) -> String {
         let formatter = NumberFormatter()
         formatter.numberStyle = .decimal
         
         let absoluteValue = abs(number)
         let isInteger = number.truncatingRemainder(dividingBy: 1) == 0
+        let isLargeInteger = absoluteValue >= 100
+        let isSmallInteger = absoluteValue < 10
+        let isOneDecimal = String(number).split(separator: ".").last?.count ?? 0 <= 1
         
-        if isInteger && absoluteValue >= 100 { //세자리 수 이상인 정수 -> 그대로 표현
-            formatter.minimumFractionDigits = 0
-            formatter.maximumFractionDigits = 0
-        } else if isInteger && absoluteValue < 10 {//세자리 수 이하인 정수 -> 소수2자리 붙여서 표현
-            formatter.minimumFractionDigits = 2
-            formatter.maximumFractionDigits = 2
-            if let formattedString = formatter.string(from: NSNumber(value: number)) {
-                return formattedString
+        if isInteger {
+            if isLargeInteger { // 3자리 수 이상인 정수 -> 그대로 표현
+                formatter.minimumFractionDigits = 0
+                formatter.maximumFractionDigits = 0
+            } else if isSmallInteger { // 1자리 수 정수-> 뒤에 소수점(.00) 붙여서 표현
+                formatter.minimumFractionDigits = 2
+                formatter.maximumFractionDigits = 2
             }
         } else {
-            if String(number).split(separator: ".").last?.count ?? 0 <= 1 { // 실수인데 소수점이 한자리인 경우 -> 소수점 두자리로 표현
+            if isOneDecimal { // 실수인데 소수점이 한자리인 경우 -> 소수점 두자리로 표현
                 formatter.minimumFractionDigits = 2
                 formatter.maximumFractionDigits = 2
             } else { // 실수인데 소수점이 두자리이상인 경우 -> 그대로 표현
