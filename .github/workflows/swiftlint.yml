@@ -3,7 +3,6 @@ name: SwiftLint on Push
 on:
   push:
     branches:
-     branches:
       - feature/issues-2
     paths:
       - '.github/workflows/swiftlint.yml'
@@ -11,24 +10,26 @@ on:
       - '**/*.swift'
 
 jobs:
- build:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
     - name: GitHub Action for SwiftLint
       uses: norio-nomura/action-swiftlint@master
       env:
         DIFF_BASE: ${{ github.base_ref }}
 
     - name: Add PR Comment
-      if: ${{ success() }}
+      if: success()
       uses: mshick/add-pr-comment@v1
       with:
         message: |
-         ## All File Checked ✅
-         | ✅ 	| Auto Pull Request SwiftLint Success!!!! 	|
-         |---	|----------------------------------------------	|
+          ## All Files Checked ✅
+          | ✅ | Auto Pull Request SwiftLint Success!!!! |
+          |---|-----------------------------------------|
         repo-token: ${{ secrets.ACCESS_TOKEN }}
         repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
         allow-repeats: false # This is the default
