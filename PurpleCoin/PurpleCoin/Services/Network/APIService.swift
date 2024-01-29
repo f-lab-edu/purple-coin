@@ -23,8 +23,25 @@ final class APIService {
     }
     
     //호가 정보 가져오기
-    func getOrderBookData(marketCodes: String ,completion: @escaping (Result<[OrderBook], Error>) -> Void) {
-        request(target: .getOrderBook(marketCodes: marketCodes), completion: completion)
+    func getOrderBookDataPublisher(marketCodes: String) -> AnyPublisher<[OrderBook], OrderBookError> {
+        return Future<[OrderBook], OrderBookError> { promise in
+            self.provider.request(.getOrderBook(marketCodes: marketCodes)) { result in
+                switch result {
+                case .success(let response):
+                    do {
+                        let results = try JSONDecoder().decode([OrderBook].self, from: response.data)
+                        promise(.success(results))
+                    } catch _ as DecodingError {
+                        promise(.failure(.decodingError))
+                    } catch _ {
+                        promise(.failure(.orderBookFetchingError))
+                    }
+                case .failure(_):
+                    promise(.failure(.orderBookFetchingError))
+                }
+            }
+        }
+        .eraseToAnyPublisher()
     }
 }
 

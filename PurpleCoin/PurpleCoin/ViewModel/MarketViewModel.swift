@@ -7,13 +7,6 @@
 
 import Foundation
 
-enum MarketError: Error {
-    //마켓 코드 에러
-    case marketCodeFetchingError
-    //마켓 데이터 에러
-    case marketDataFetchingError
-}
-
 final class MarketViewModel {
     var marketData: [MarketData]?
     var allMarketCode: [MarketCode]?

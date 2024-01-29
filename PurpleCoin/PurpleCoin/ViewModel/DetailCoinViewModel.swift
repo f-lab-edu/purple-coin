@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 final class DetailCoinViewModel {
     var marketData: MarketData?
     var orderBookData: OrderBook?
+    
+    private var cancellables: Set<AnyCancellable> = []
     
     func getMarketData(marketCode: String, completion: @escaping (Result<[MarketData], Error>) -> Void) {
         APIService().getMarketData(marketCodes: marketCode) { result in
@@ -25,15 +28,19 @@ final class DetailCoinViewModel {
         }
     }
     
-    func getOrderBookData(marketCode: String, completion: @escaping (Result<[OrderBook], Error>) -> Void) {
-        APIService().getOrderBookData(marketCodes: marketCode, completion: { result in
-            switch result {
-            case .success(let data):
-                self.orderBookData = data[0]
-                completion(result)
-            case .failure(_):
-                completion(result)
+    func getOrderBookData(marketCode: String, completion: @escaping (OrderBookError?) -> Void) {
+        APIService().getOrderBookDataPublisher(marketCodes: marketCode)
+            .sink { sinkCompletion in
+                switch sinkCompletion {
+                case .finished:
+                    completion(nil)
+                case .failure(let err):
+                    completion(err)
+                }
+            } receiveValue: { orderBook in
+                self.orderBookData = orderBook.first
             }
-        })
+            .store(in: &cancellables)
     }
+
 }

@@ -23,8 +23,17 @@ class DetailCoinViewController: UIViewController {
         super.viewDidLoad()
         viewModel.getMarketData(marketCode: marketCode) { [self] _ in
             detailCoinView.setAttributes(krwName: krwName, marketData: viewModel.marketData)
-            viewModel.getOrderBookData(marketCode: marketCode) { [self] _ in
-                detailCoinView.orderBookTableView.reloadData()
+            viewModel.getOrderBookData(marketCode: marketCode) { [self] error in
+                if let error = error {
+                    switch error {
+                    case .decodingError:
+                        self.showAlert(message: "디코딩 에러")
+                    case .orderBookFetchingError:
+                        self.showAlert(message: "호가정보 패치 에러")
+                    }
+                } else {
+                    detailCoinView.orderBookTableView.reloadData()
+                }
             }
         }
         bindAction()
@@ -50,6 +59,13 @@ class DetailCoinViewController: UIViewController {
     
     func setInterestButton() {
         detailCoinView.topView.interestButton.isSelected = UserConfig.shared.intrestedCoins.contains(marketCode)
+    }
+    
+    func showAlert(message: String) {
+        let alertController = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        present(alertController, animated: true, completion: nil)
     }
 }
 
