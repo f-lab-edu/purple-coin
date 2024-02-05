@@ -6,6 +6,7 @@ target 'PurpleCoin' do
   use_frameworks!
 	pod 'SnapKit', '~> 5.0.0'
 	pod 'Moya'
+	pod 'SwiftLint'
   # Pods for PurpleCoin
 
   target 'PurpleCoinTests' do
