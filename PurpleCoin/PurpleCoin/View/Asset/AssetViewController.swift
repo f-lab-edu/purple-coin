@@ -12,4 +12,8 @@ final class AssetViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    func swiftLintTest() {
+        print("test")
+    }
 }
