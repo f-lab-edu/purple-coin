@@ -63,4 +63,11 @@ private extension APIService {
             }
         }
     }
+    
+//    func request<T: Decodable, U: Error>(target: API,
+//                               decoder: T,
+//                               errorType: U
+//    ) -> AnyPublisher<T, U> {
+//        return
+//    }
 }

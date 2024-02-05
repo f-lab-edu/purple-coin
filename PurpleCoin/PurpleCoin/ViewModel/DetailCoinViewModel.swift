@@ -43,4 +43,22 @@ final class DetailCoinViewModel {
             .store(in: &cancellables)
     }
 
+//    func getOrderBookData(marketCode: String) async throws -> OrderBookError? {
+//        do {
+//            APIService().getOrderBookDataPublisher(marketCodes: marketCode)
+//                .sink { sinkCompletion in
+//                    switch sinkCompletion {
+//                    case .finished:
+//                        throw nil
+//                    case .failure(let err):
+//                        throw err
+//                    }
+//                } receiveValue: { orderBook in
+//                    self.orderBookData = orderBook.first
+//                }
+//                .store(in: &cancellables)
+//        } catch {
+//            throw error
+//        }
+//    }
 }
