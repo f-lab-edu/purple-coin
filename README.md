@@ -1,5 +1,4 @@
 # purple-coin
-### a
 ## 화면설계
 <p align="center"> 
 <img src="https://github.com/f-lab-edu/purple-coin/assets/79886603/9794de43-b418-4ddc-9866-0f623c59a947" align="center" width="30%">
