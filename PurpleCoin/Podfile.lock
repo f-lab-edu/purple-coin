@@ -5,22 +5,26 @@ PODS:
   - Moya/Core (15.0.0):
     - Alamofire (~> 5.0)
   - SnapKit (5.0.1)
+  - SwiftLint (0.54.0)
 
 DEPENDENCIES:
   - Moya
   - SnapKit (~> 5.0.0)
+  - SwiftLint
 
 SPEC REPOS:
   trunk:
     - Alamofire
     - Moya
     - SnapKit
+    - SwiftLint
 
 SPEC CHECKSUMS:
   Alamofire: 3ca42e259043ee0dc5c0cdd76c4bc568b8e42af7
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
+  SwiftLint: c1de071d9d08c8aba837545f6254315bc900e211
 
-PODFILE CHECKSUM: 74b811cd854af71ec380e001a0a204c7e07429ec
+PODFILE CHECKSUM: 00942281e7f259669fb8e49d8cb8a96bece19b9b
 
 COCOAPODS: 1.12.1
