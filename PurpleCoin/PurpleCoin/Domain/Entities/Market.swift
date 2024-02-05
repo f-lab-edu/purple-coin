@@ -17,6 +17,18 @@ struct MarketCode: Codable {
     }
 }
 
+struct MarketCode2: Codable {
+    let englishName: String
+    let koreanName: String
+    let market: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case englishName = "english_name"
+        case koreanName = "korean_name"
+        case market
+    }
+}
+
 struct MarketData: Codable {
     // API Reference https://docs.upbit.com/reference/ticker%ED%98%84%EC%9E%AC%EA%B0%80-%EC%A0%95%EB%B3%B4
     let market: String
